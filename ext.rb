@@ -83,7 +83,7 @@ module Lyp::Lilypond
   end
 end
 
-unless File.exists?(Lyp::Lilypond::LYS_SERVER_PATH)
+unless File.exist?(Lyp::Lilypond::LYS_SERVER_PATH)
   File.open(Lyp::Lilypond::LYS_SERVER_PATH, "w+") {|f| f << SERVER_CODE}
 end
 
