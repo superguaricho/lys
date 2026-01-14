@@ -27,13 +27,12 @@
 ; loop: read scheme expression from given port and evaluate it
 (define (lys:eval-loop port)
   (begin
-    (let loop ((expr (read port)))
+    (let ((expr (read port)))
       (if (not (eof-object? expr))
         (begin
-          (lys:debug (format "eval ~s" expr))
+          (lys:debug (format #f "eval ~s" expr))
           (lys:eval expr)
-          (display "\n> " port)
-          (loop (read port)))))))
+          (display "\n> " port))))))
 
 ; start an evaluate loop on stdin
 (define (lys:stdin-eval-loop) (lys:eval-loop (current-input-port)))
@@ -42,10 +41,10 @@
 (define (lys:eval expr)
   (catch #t (lambda () (eval expr (current-module)))
     (lambda (key . params)
-      (lys:debug (format "Error evaluating expression ~a: ~a\n" key params)))))
+      (lys:debug (format #f "Error evaluating expression ~a: ~a\n" key params)))))
 
 (define (lys:elapsed t1 t2) (/ (- t2 t1) (* 1.0 internal-time-units-per-second)))
 
 (define (lys:display-elapsed t1)
-  (lys:debug (format "Elapsed: ~as\n" (lys:elapsed t1 (get-internal-real-time)))))
+  (lys:debug (format #f "Elapsed: ~as\n" (lys:elapsed t1 (get-internal-real-time)))))
 
